@@ -7,6 +7,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 public class UserService {
@@ -24,5 +28,32 @@ public class UserService {
         //convert user to dto
          UserDto saveduserDto = modelMapper.map(savedUser, UserDto.class);
         return saveduserDto;
+    }
+
+
+    public boolean deleteUser(Long id) {
+
+        if(userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+
+    public UserDto getUser(Long id){
+      Optional<User> user  = userRepository.findById(id);
+      if(user.isPresent()) {
+          UserDto getUserDto = modelMapper.map(user, UserDto.class);
+          return getUserDto;
+      }else {
+          return null;
+      }
+    }
+
+    public  List<UserDto> getAllUser(){
+      List<User>  userList = userRepository.findAll();
+      return userList.stream().map(user -> modelMapper.map(user, UserDto.class))
+              .collect(Collectors.toList());
     }
 }
