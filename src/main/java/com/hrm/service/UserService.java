@@ -18,9 +18,10 @@ public class UserService {
     private ModelMapper modelMapper;
 
     public UserDto savedUser(UserDto userDto) {
-
+        //convert dto to user
         User user =  modelMapper.map(userDto, User.class);
          User savedUser = userRepository.save(user);
+        //convert user to dto
          UserDto saveduserDto = modelMapper.map(savedUser, UserDto.class);
         return saveduserDto;
     }
