@@ -57,15 +57,27 @@ public class UserService {
               .collect(Collectors.toList());
     }
 
-    public void updateUser(Long id,UserDto userDto){
+    public boolean updateUser(Long id,UserDto userDto){
            Optional<User> optionalUser = userRepository.findById(id);
            if(optionalUser.isPresent()){
                User user = optionalUser.get();
-               user.setUsername(userDto.getUsername());
-               user.setEmail(userDto.getEmail());
-               user.setCity(userDto.getCity());
-               user.setContact(userDto.getContact());
+
+               if (userDto.getUsername() != null) {
+                   user.setUsername(userDto.getUsername());
+               }
+               if (userDto.getEmail() != null) {
+                   user.setEmail(userDto.getEmail());
+               }
+               if (userDto.getCity() != null) {
+                   user.setCity(userDto.getCity());
+               }
+               if (userDto.getContact() != null) {
+                   user.setContact(userDto.getContact());
+               }
                userRepository.save(user);
+               return true;
+           }else {
+               return false;
            }
     }
 }
