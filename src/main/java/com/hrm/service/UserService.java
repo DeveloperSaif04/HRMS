@@ -56,4 +56,16 @@ public class UserService {
       return userList.stream().map(user -> modelMapper.map(user, UserDto.class))
               .collect(Collectors.toList());
     }
+
+    public void updateUser(Long id,UserDto userDto){
+           Optional<User> optionalUser = userRepository.findById(id);
+           if(optionalUser.isPresent()){
+               User user = optionalUser.get();
+               user.setUsername(userDto.getUsername());
+               user.setEmail(userDto.getEmail());
+               user.setCity(userDto.getCity());
+               user.setContact(userDto.getContact());
+               userRepository.save(user);
+           }
+    }
 }

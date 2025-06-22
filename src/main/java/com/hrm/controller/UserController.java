@@ -75,4 +75,15 @@ public class UserController {
        }
        return  response;
     }
+
+    @PutMapping("/update")
+    public ResponseDto update(@RequestParam Long id,@RequestBody UserDto userDto){
+        userService.updateUser(id,userDto);
+        ResponseDto response = new ResponseDto();
+        response.setStatusCode("200");
+        response.setMessage("user update...");
+        response.setResponseData("update");
+        return  response;
+
+    }
 }
