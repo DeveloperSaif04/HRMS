@@ -1,7 +1,6 @@
 package com.hrm.dto;
 
 public class UserDto {
-    private Long id;
     private String username;
     private String city;
     private String contact;
