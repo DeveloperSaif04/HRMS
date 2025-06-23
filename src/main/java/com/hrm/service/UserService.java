@@ -4,6 +4,7 @@ import com.hrm.dto.UserDto;
 import com.hrm.entity.User;
 import com.hrm.exception.UserAlreadyExistsException;
 import com.hrm.exception.UserNotFoundException;
+import com.hrm.exception.UserUpdateException;
 import com.hrm.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,7 @@ public class UserService {
                userRepository.save(user);
                return true;
            }else {
-               return false;
+               throw new UserUpdateException("Cannot update: User with ID " + id + " not found");
            }
     }
 }
