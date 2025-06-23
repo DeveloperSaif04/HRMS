@@ -27,7 +27,7 @@ public class UserService {
         //convert dto to user
         User user =  modelMapper.map(userDto, User.class);
         if(userRepository.findByEmail(user.getEmail()).isPresent()){
-            throw new UserAlreadyExistsException("User already exits by the username "+user.getUsername());
+            throw new UserAlreadyExistsException("User already exits by the email "+user.getEmail());
         }
          User savedUser = userRepository.save(user);
         //convert user to dto
@@ -84,7 +84,7 @@ public class UserService {
                userRepository.save(user);
                return true;
            }else {
-               return false;
+               throw  new UserNotFoundException("user not found with id:" +id);
            }
     }
 }
