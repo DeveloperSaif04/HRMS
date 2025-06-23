@@ -1,11 +1,13 @@
 package com.hrm.dto;
 
+import com.hrm.entity.User;
+
 public class UserDto {
+
     private String username;
     private String city;
     private String contact;
     private String email;
-
 
 
     public String getUsername() {

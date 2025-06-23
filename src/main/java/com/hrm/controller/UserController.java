@@ -36,9 +36,6 @@ public class UserController {
            response.setStatusCode("200");
            response.setMessage("User deleted");
            response.setResponseData(deleteUser);
-       }else {
-           response.setStatusCode("404");
-           response.setMessage("User not found");
        }
        return response;
     }
@@ -52,10 +49,6 @@ public class UserController {
           response.setStatusCode("200");
           response.setMessage("user found...");
           response.setResponseData(userDto);
-      }else {
-          response.setStatusCode("404");
-          response.setMessage("User not found");
-          response.setResponseData(null);
       }
       return  response;
     }
@@ -83,10 +76,6 @@ public class UserController {
         if(updateUser) {
             response.setStatusCode("200");
             response.setMessage("user update...");
-            response.setResponseData(true);
-        }else {
-            response.setStatusCode("404");
-            response.setMessage("user not found...");
             response.setResponseData(true);
         }
         return  response;
