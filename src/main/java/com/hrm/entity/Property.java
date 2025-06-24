@@ -25,6 +25,8 @@ public class Property {
     @Column(name="number_of_guests_allowed")
     private int numberOfGuestAllowed;
 
+    @Column(name="price")
+    private double price;//added this
     @ManyToOne
     @JoinColumn(name = "area_id")
     private  Area area;

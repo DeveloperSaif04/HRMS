@@ -4,14 +4,21 @@ import com.hrm.dto.PropertyDto;
 import com.hrm.dto.RoomsDto;
 import com.hrm.entity.*;
 import com.hrm.repository.*;
+import com.hrm.specification.PropertySpecification;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+
 
 @Service
 public class PropertyService {
+
+    private static final Logger log = LoggerFactory.getLogger(PropertyService.class);
 
      @Autowired
      private ModelMapper modelMapper;
@@ -61,5 +68,17 @@ public class PropertyService {
 
         return  savedProperty;
     }
+
+
+    public List<Property> search(String city, Integer rating, Double minPrice, Double maxPrice) {
+        if (rating != null && (rating < 1 || rating > 5)) {
+            throw new IllegalArgumentException("Rating must be between 1 and 5");
+        }
+
+        Specification<Property> spec = PropertySpecification.filterBy(city, rating, minPrice, maxPrice);
+        log.info("Applying search filter: city={}, rating={}, minPrice={}, maxPrice={}", city, rating, minPrice, maxPrice);
+        return propertyRepository.findAll(spec);
+    }
 }
+
 
