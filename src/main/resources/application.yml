@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: demo
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/hrms
+    username: root
+    password: test
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
