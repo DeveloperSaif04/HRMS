@@ -1,7 +1,5 @@
 package com.hrm.dto;
 
-import com.hrm.entity.User;
-
 public class UserDto {
 
     private String username;
