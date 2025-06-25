@@ -11,7 +11,6 @@ import java.util.List;
 
 public interface AvailableRoomsRepository extends JpaRepository<AvailableRooms,Long> {
 
-//    @Query("SELECT a FROM AvailableRooms a WHERE a.rooms = :rooms AND a.availableDateStart <= :endDate AND a.availableDateEnd >= :startDate")
 @Query("SELECT a FROM AvailableRooms a WHERE a.rooms = :rooms AND a.availableDate BETWEEN :startDate AND :endDate")
 List<AvailableRooms> findAvailableRooms(
         @Param("rooms") Rooms rooms,

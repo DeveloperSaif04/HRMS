@@ -28,7 +28,7 @@ public class PropertyController {
 
 
     @GetMapping("/roomAvailable/{hotelId}")
-    public ResponseEntity<?> roomAvl(
+    public ResponseEntity<?> roomAvailable(
             @PathVariable long hotelId,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {

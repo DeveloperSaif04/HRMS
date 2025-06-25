@@ -71,33 +71,6 @@ public class PropertyService {
 
 
 
-//    public List<AvailableRoomsDto> roomAvailable(long hotelId, LocalDate startDate, LocalDate endDate) {
-//
-//        List<AvailableRoomsDto> result = new ArrayList<>();
-//
-//        // Step 1: Find all rooms in the property
-//        List<Rooms> roomsList = roomsRepository.findByPropertyId(hotelId);
-//
-//        // Step 2: For each room, check availability between the date range
-//        for (Rooms room : roomsList) {
-//
-//            List<AvailableRooms> availableRooms = availableRoomsRepository
-//                    .findAvailableRooms(
-//                            room, endDate, startDate);
-//
-//
-//            for (AvailableRooms available : availableRooms) {
-//                AvailableRoomsDto dto = new AvailableRoomsDto();
-//                dto.setRoomType(room.getRoomType());
-//                dto.setPrice(available.getPrice());
-////                dto.setAvailableCount(available.getAvailableCount());
-//                dto.setAvailableDate(available.getAvailableDate());
-//                result.add(dto);
-//            }
-//        }
-//
-//        return result;
-//    }
 
     public List<AvailableRoomsDto> roomAvailable(long hotelId, LocalDate startDate, LocalDate endDate) {
 
