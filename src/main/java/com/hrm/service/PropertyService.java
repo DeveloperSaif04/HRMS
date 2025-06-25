@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,7 @@ public class PropertyService {
     private StateRepository stateRepository;
 
     public Property createProperty(PropertyDto propertyDto){
+        log.info("admin entered createPropery method");
 
         Area area = areaRepository.findByName(propertyDto.getArea());
 
@@ -63,6 +66,7 @@ public class PropertyService {
             rooms.setProperty(savedProperty);
             rooms.setRoomType(roomsDto.getRoomType());
             rooms.setBasePrice(roomsDto.getBasePrice());
+            log.info("property successfully created by admin");
             roomsRepository.save(rooms);
         }
 
@@ -70,15 +74,19 @@ public class PropertyService {
     }
 
 
-    public List<Property> search(String city, Integer rating, Double minPrice, Double maxPrice) {
+    public Page<Property> propertySearch(String city, Integer rating, Double minPrice, Double maxPrice, Pageable pageable) {
         if (rating != null && (rating < 1 || rating > 5)) {
             throw new IllegalArgumentException("Rating must be between 1 and 5");
         }
 
         Specification<Property> spec = PropertySpecification.filterBy(city, rating, minPrice, maxPrice);
-        log.info("Applying search filter: city={}, rating={}, minPrice={}, maxPrice={}", city, rating, minPrice, maxPrice);
-        return propertyRepository.findAll(spec);
+        log.info("Applying search filter: city={}, rating={}, minPrice={}, maxPrice={}, pageable={}", city, rating, minPrice, maxPrice, pageable);
+
+        return propertyRepository.findAll(spec, pageable);
     }
 }
+
+
+
 
 

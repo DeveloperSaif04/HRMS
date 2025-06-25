@@ -19,8 +19,7 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ErrorResponse userNotFound(UserNotFoundException userNotFound,WebRequest webRequest){
-        ErrorResponse errorResponse = new ErrorResponse(
+    public ErrorResponse userNotFound(UserNotFoundException userNotFound,WebRequest webRequest){ErrorResponse errorResponse = new ErrorResponse(
                 "404",
                 userNotFound.getMessage(),
                 webRequest.getDescription(false)

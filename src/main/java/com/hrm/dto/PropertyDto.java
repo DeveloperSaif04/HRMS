@@ -14,8 +14,7 @@ public class PropertyDto {
    private String area;
    private String city;
    private String state;
-    private double price;//added this
-    private List<RoomsDto> roomsDtoList;
+   private List<RoomsDto> roomsDtoList;
 
     public List<RoomsDto> getRoomsDtoList() {
         return roomsDtoList;
@@ -69,7 +68,7 @@ public class PropertyDto {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(String area){
         this.area = area;
     }
 

@@ -4,6 +4,10 @@ import com.hrm.dto.PropertyDto;
 import com.hrm.entity.Property;
 import com.hrm.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +28,18 @@ public class PropertyController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Property>> searchHotels(
+    public ResponseEntity<Page<Property>> searchProperty(
             @RequestParam(required = false) String city,
             @RequestParam(required = false) Integer rating,
             @RequestParam(required = false) Double minPrice,
-            @RequestParam(required = false) Double maxPrice
+            @RequestParam(required = false) Double maxPrice,
+            //for pagination and sorting
+             @RequestParam(defaultValue = "0") int page,
+             @RequestParam(defaultValue = "2") int size,
+             @RequestParam(defaultValue = "id") String sortBy
     ) {
-        List<Property> result = propertyService.search(city, rating, minPrice, maxPrice);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        Page<Property> result = propertyService.propertySearch(city, rating, minPrice, maxPrice,pageable);
         return ResponseEntity.ok(result);
     }
 }

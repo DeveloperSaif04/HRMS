@@ -6,11 +6,13 @@ import com.hrm.exception.UserAlreadyExistsException;
 import com.hrm.exception.UserNotFoundException;
 import com.hrm.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
@@ -22,6 +24,7 @@ public class UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+
 
     public UserDto savedUser(UserDto userDto) {
         //convert dto to user
