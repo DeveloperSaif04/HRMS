@@ -1,7 +1,5 @@
 package com.hrm.dto;
 
-import jakarta.persistence.Column;
-
 import java.util.List;
 
 public class PropertyDto {
@@ -14,7 +12,7 @@ public class PropertyDto {
    private String area;
    private String city;
    private String state;
-    private double price;//added this
+
     private List<RoomsDto> roomsDtoList;
 
     public List<RoomsDto> getRoomsDtoList() {

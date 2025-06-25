@@ -11,3 +11,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+#logging:
+#  level:
+#    root: INFO
+#    com.hrms: DEBUG
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+#  file:
+##    name: logs/app.log

@@ -9,8 +9,12 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -65,7 +69,7 @@ public class PropertyService {
             rooms.setBasePrice(roomsDto.getBasePrice());
             roomsRepository.save(rooms);
         }
-
+        log.info("property succcessfully created");
         return  savedProperty;
     }
 
@@ -79,6 +83,15 @@ public class PropertyService {
         log.info("Applying search filter: city={}, rating={}, minPrice={}, maxPrice={}", city, rating, minPrice, maxPrice);
         return propertyRepository.findAll(spec);
     }
+
+    public Page<Property> listOfProperty(int pageNo, int pageSize, String sortBy){
+        PageRequest pages = PageRequest.of(pageNo,pageSize, Sort.by(sortBy));
+         Page<Property> pageProperty = propertyRepository.findAll(pages);
+         log.info("list of property");
+         return  pageProperty;
+    }
+
+
 }
 
 
