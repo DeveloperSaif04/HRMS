@@ -9,10 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class PropertyService {
             log.info("property successfully created by admin");
             roomsRepository.save(rooms);
         }
-
+        log.info("property succcessfully created");
         return  savedProperty;
     }
 
@@ -84,6 +84,15 @@ public class PropertyService {
 
         return propertyRepository.findAll(spec, pageable);
     }
+
+    public Page<Property> listOfProperty(int pageNo, int pageSize, String sortBy){
+        PageRequest pages = PageRequest.of(pageNo,pageSize, Sort.by(sortBy));
+         Page<Property> pageProperty = propertyRepository.findAll(pages);
+         log.info("list of property");
+         return  pageProperty;
+    }
+
+
 }
 
 
