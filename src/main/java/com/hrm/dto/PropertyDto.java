@@ -67,7 +67,7 @@ public class PropertyDto {
         return area;
     }
 
-    public void setArea(String area) {
+    public void setArea(String area){
         this.area = area;
     }
 
