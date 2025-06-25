@@ -2,7 +2,7 @@ package com.hrm.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class AvailableRooms {
@@ -13,7 +13,7 @@ public class AvailableRooms {
     private long id;
 
     @Column(name = "available_datetime")
-    private LocalDateTime availableDateTime;
+    private LocalDate availableDate;
 
     @Column(name = "available_count")
     private long availableCount;
@@ -41,12 +41,13 @@ public class AvailableRooms {
         this.id = id;
     }
 
-    public LocalDateTime getAvailableDateTime() {
-        return availableDateTime;
+
+    public LocalDate getAvailableDate() {
+        return availableDate;
     }
 
-    public void setAvailableDateTime(LocalDateTime availableDateTime) {
-        this.availableDateTime = availableDateTime;
+    public void setAvailableDate(LocalDate availableDate) {
+        this.availableDate = availableDate;
     }
 
     public long getAvailableCount() {

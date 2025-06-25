@@ -1,5 +1,6 @@
 package com.hrm.service;
 
+import com.hrm.dto.AvailableRoomsDto;
 import com.hrm.dto.PropertyDto;
 import com.hrm.dto.RoomsDto;
 import com.hrm.entity.*;
@@ -14,6 +15,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -39,6 +42,8 @@ public class PropertyService {
 
     @Autowired
     private StateRepository stateRepository;
+    @Autowired
+    private AvailableRoomsRepository availableRoomsRepository;
 
     public Property createProperty(PropertyDto propertyDto){
         log.info("admin entered createPropery method");
@@ -92,6 +97,27 @@ public class PropertyService {
          return  pageProperty;
     }
 
+    public List<AvailableRoomsDto> roomAvailable(long propertyId, LocalDate startDate, LocalDate endDate) {
+
+        List<AvailableRoomsDto> result = new ArrayList<>();
+
+        List<Rooms> roomsList = roomsRepository.findByPropertyId(propertyId);
+
+        for (Rooms room : roomsList) {
+            List<AvailableRooms> availableRooms = availableRoomsRepository
+                    .findAvailableRooms(room, startDate, endDate);
+
+            for (AvailableRooms available : availableRooms) {
+                AvailableRoomsDto dto = new AvailableRoomsDto();
+                dto.setRoomType(room.getRoomType());
+                dto.setPrice(available.getPrice());
+                dto.setAvailableDate(available.getAvailableDate());
+                result.add(dto);
+            }
+        }
+
+        return result;
+    }
 
 }
 
