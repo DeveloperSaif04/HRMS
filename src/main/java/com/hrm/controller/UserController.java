@@ -3,6 +3,7 @@ package com.hrm.controller;
 import com.hrm.dto.ResponseDto;
 import com.hrm.dto.UserDto;
 import com.hrm.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/create")
-    public ResponseDto createUser(@RequestBody UserDto userDto){
+    public ResponseDto createUser(@Valid @RequestBody UserDto userDto){
 
             UserDto createdUser   = userService.savedUser(userDto);
 
