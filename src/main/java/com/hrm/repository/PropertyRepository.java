@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface PropertyRepository extends JpaRepository<Property,Long>, JpaSpecificationExecutor<Property> {
 
+
 }
