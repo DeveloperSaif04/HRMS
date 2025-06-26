@@ -56,6 +56,10 @@ public class ExceptionController {
     public ResponseEntity<Object> handleNoRoomFound(NoRoomAvailableException e){
         return buildResponse(HttpStatus.OK, e.getMessage());
     }
+    @ExceptionHandler(WrongWayDateEntryException.class)
+    public ResponseEntity<Object> handleWrongWayDateEntry(WrongWayDateEntryException e){
+        return buildResponse(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
 
     private ResponseEntity<Object> buildResponse(HttpStatus status,String message){
         Map<String ,Object> body=new LinkedHashMap<>();
