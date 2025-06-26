@@ -3,6 +3,7 @@ package com.hrm.controller;
 import com.hrm.dto.AvailableRoomsDto;
 import com.hrm.dto.PropertyDto;
 import com.hrm.entity.Property;
+import com.hrm.exception.WrongWayDateEntryException;
 import com.hrm.service.PropertyService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -58,11 +59,15 @@ public class PropertyController {
          Page<Property> listOfProperty = propertyService.listOfProperty(pageNo,pageSize,sortBy);
         return  new ResponseEntity<>(listOfProperty, HttpStatus.OK);
     }
+// url-> GET /roomAvailable/1?startDate=2025-06-15&endDate=2025-06-18
     @GetMapping("/roomAvailable/{hotelId}")
     public ResponseEntity<?> roomAvl(
             @PathVariable long hotelId,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        if(startDate.isAfter((endDate))){
+            throw new WrongWayDateEntryException("Start date must be before or equal to end date");
+        }
 
         List<AvailableRoomsDto> availableRooms = propertyService.roomAvailable(hotelId, startDate, endDate);
         return new ResponseEntity<>(availableRooms, HttpStatus.OK);

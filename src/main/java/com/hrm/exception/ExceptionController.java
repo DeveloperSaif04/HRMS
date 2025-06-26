@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @RestControllerAdvice
 public class ExceptionController {
 
@@ -31,17 +35,7 @@ public class ExceptionController {
         return errorResponse;
     }
 
-//    @ExceptionHandler(MethodArgNotValid.class)
-//    public ErrorResponse methodInvaildArg(MethodArgNotValid methodArgumentNotValidException
-//    ,WebRequest webRequest) {
-//        ErrorResponse errorResponse = new ErrorResponse(
-//                "404",
-//                methodArgumentNotValidException.getMessage(),
-//        webRequest.getDescription(false)
-//         );
-//        return  errorResponse;
-//
-//    }
+
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
@@ -51,6 +45,29 @@ public class ExceptionController {
                 request.getDescription(false)
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    //Property and Room not available exception handling.
+    @ExceptionHandler(HotelNotFoundException.class)
+    public ResponseEntity<Object> handleNoHotelNotFound(HotelNotFoundException e){
+        return buildResponse(HttpStatus.NOT_FOUND,e.getMessage());
+    }
+    @ExceptionHandler(NoRoomAvailableException.class)
+    public ResponseEntity<Object> handleNoRoomFound(NoRoomAvailableException e){
+        return buildResponse(HttpStatus.OK, e.getMessage());
+    }
+    @ExceptionHandler(WrongWayDateEntryException.class)
+    public ResponseEntity<Object> handleWrongWayDateEntry(WrongWayDateEntryException e){
+        return buildResponse(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
+    private ResponseEntity<Object> buildResponse(HttpStatus status,String message){
+        Map<String ,Object> body=new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("Status",status.value());
+        body.put("error",status.getReasonPhrase());
+        body.put("message",message);
+        return new ResponseEntity<>(body,status);
     }
 
 

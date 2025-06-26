@@ -4,6 +4,8 @@ import com.hrm.dto.AvailableRoomsDto;
 import com.hrm.dto.PropertyDto;
 import com.hrm.dto.RoomsDto;
 import com.hrm.entity.*;
+import com.hrm.exception.HotelNotFoundException;
+import com.hrm.exception.NoRoomAvailableException;
 import com.hrm.repository.*;
 import com.hrm.specification.PropertySpecification;
 import org.modelmapper.ModelMapper;
@@ -102,6 +104,9 @@ public class PropertyService {
         List<AvailableRoomsDto> result = new ArrayList<>();
 
         List<Rooms> roomsList = roomsRepository.findByPropertyId(propertyId);
+        if(roomsList.isEmpty()){
+            throw new HotelNotFoundException("Hotel with ID Number: "+propertyId+" not found.");
+        }
 
         for (Rooms room : roomsList) {
             List<AvailableRooms> availableRooms = availableRoomsRepository
@@ -114,6 +119,9 @@ public class PropertyService {
                 dto.setAvailableDate(available.getAvailableDate());
                 result.add(dto);
             }
+        }
+        if(result.isEmpty()){
+            throw new NoRoomAvailableException("No rooms for the selected date range. ");
         }
 
         return result;
