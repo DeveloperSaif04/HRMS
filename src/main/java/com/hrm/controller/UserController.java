@@ -80,6 +80,5 @@ public class UserController {
             response.setResponseData(true);
         }
         return  response;
-
     }
 }
