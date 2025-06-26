@@ -69,10 +69,6 @@ public class ExceptionController {
         body.put("message",message);
         return new ResponseEntity<>(body,status);
     }
-
-
-
-
 }
 
 
