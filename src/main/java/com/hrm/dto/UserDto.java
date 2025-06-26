@@ -26,11 +26,11 @@ public class UserDto {
     @NotBlank(message = "password is required")
     private String password;
 
-    public @NotBlank(message = "password is required") String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NotBlank(message = "password is required") String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
