@@ -1,6 +1,6 @@
 package com.hrm.dto;
 
-public class ResponseDto {
+public class ResponseDto  {
 
     private String statusCode;
     private String message;

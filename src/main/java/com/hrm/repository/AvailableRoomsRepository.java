@@ -16,6 +16,5 @@ public interface AvailableRoomsRepository extends JpaRepository<AvailableRooms,L
             @Param("rooms") Rooms rooms,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
-
 }
 

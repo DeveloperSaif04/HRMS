@@ -69,6 +69,11 @@ public class ExceptionController {
         body.put("message",message);
         return new ResponseEntity<>(body,status);
     }
+
+    @ExceptionHandler(BookingOverlapException.class)
+    public ResponseEntity<Object> handleWrongWayDateEntry(BookingOverlapException e){
+        return buildResponse(HttpStatus.CONFLICT, e.getMessage());
+    }
 }
 
 

@@ -10,9 +10,9 @@ public class AvailableRooms {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "availableRooms_id")
-    private long id;
+    private Long id;
 
-    @Column(name = "available_datetime")
+    @Column(name = "available_date")
     private LocalDate availableDate;
 
     @Column(name = "available_count")

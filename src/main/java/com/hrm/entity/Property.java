@@ -8,7 +8,7 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "property_id")
-    private long id;
+    private Long id;
 
     @Column(name = "property_name")
     private String name;
@@ -61,7 +61,7 @@ public class Property {
         this.state = state;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
