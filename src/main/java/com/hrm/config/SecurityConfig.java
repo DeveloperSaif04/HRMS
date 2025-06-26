@@ -36,14 +36,22 @@ public class SecurityConfig {
         daoAuthenticationProvider.setPasswordEncoder(getEncodedPassword());
         return  daoAuthenticationProvider;
     }
+    public String[] openUrl={
+            "/api/v1/auth/register",
+            "/api/v1/user/create",
+            "/api/v1/auth/login",
+            "/api/v1/property/create"
+    };
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-      return   http.csrf(csrf->csrf.disable())
-                .authorizeHttpRequests(
-                        req->{
-                            req.anyRequest().permitAll();
-                        }
-                        ).build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(req -> req
+                        .requestMatchers(openUrl).permitAll()
+                        .requestMatchers( "/api/v1/user/create").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .build();
     }
 }
