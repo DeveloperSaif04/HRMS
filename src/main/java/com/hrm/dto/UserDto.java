@@ -23,6 +23,16 @@ public class UserDto {
     @Email(message = "Invalid email format")
     private String email;
 
+    @NotBlank(message = "password is required")
+    private String password;
+
+    public @NotBlank(message = "password is required") String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotBlank(message = "password is required") String password) {
+        this.password = password;
+    }
 
     public String getUsername() {
         return username;

@@ -8,6 +8,7 @@ import com.hrm.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,14 +25,21 @@ public class UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     public UserDto savedUser(UserDto userDto) {
-        //convert dto to user
-        User user =  modelMapper.map(userDto, User.class);
-        if(userRepository.findByEmail(user.getEmail()).isPresent()){
-            throw new UserAlreadyExistsException("User already exits by the email "+user.getEmail());
+
+        if(userRepository.findByEmail(userDto.getEmail()).isPresent()){
+            throw new UserAlreadyExistsException("User already exits by the email "+userDto.getEmail());
         }
+
+        String encodedpassword = passwordEncoder.encode(userDto.getPassword());
+        userDto.setPassword(encodedpassword);
+
+           User user= modelMapper.map(userDto,User.class);
+
          User savedUser = userRepository.save(user);
         //convert user to dto
          UserDto saveduserDto = modelMapper.map(savedUser, UserDto.class);
