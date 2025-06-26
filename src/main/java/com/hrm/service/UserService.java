@@ -92,7 +92,7 @@ public class UserService {
                if (userDto.getContact() != null) {
                    user.setContact(userDto.getContact());
                }
-               userRepository.save(user);
+                userRepository.save(user);
                return true;
            }else {
                throw  new UserNotFoundException("user not found with id:" +id);

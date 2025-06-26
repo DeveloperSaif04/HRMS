@@ -7,7 +7,6 @@ public class AuthDto {
     private String username;
     @NotBlank(message = "password  is requred ")
     private String password;
-//    @NotBlank(message = "role is requried")
     private String role;
     public String getUsername() {
         return username;
@@ -15,14 +14,6 @@ public class AuthDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getPassword() {
