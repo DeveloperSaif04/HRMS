@@ -58,6 +58,7 @@ public class PropertyController {
          Page<Property> listOfProperty = propertyService.listOfProperty(pageNo,pageSize,sortBy);
         return  new ResponseEntity<>(listOfProperty, HttpStatus.OK);
     }
+// url-> GET /roomAvailable/1?startDate=2025-06-15&endDate=2025-06-18
     @GetMapping("/roomAvailable/{hotelId}")
     public ResponseEntity<?> roomAvl(
             @PathVariable long hotelId,
